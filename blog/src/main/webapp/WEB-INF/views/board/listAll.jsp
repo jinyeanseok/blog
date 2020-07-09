@@ -14,6 +14,11 @@
 		if(register === "registerOK") {
 			alert("등록 되었습니다.");
 		}
+		
+		var result = "${result}";
+		if(result === "deleteOK") {
+			alert("삭제 되었습니다.");
+		}
 	</script>
 
 </head>

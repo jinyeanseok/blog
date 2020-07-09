@@ -55,4 +55,35 @@ public class BoardController {
 		 BoardVO board  = service.read(board_number);
 		 model.addAttribute("BoardVO",board);
 	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public void updateGET(@RequestParam("board_number") Integer board_number, Model model) throws Exception {
+		logger.info("updateGET!!!");
+		BoardVO board  = service.read(board_number);
+		 model.addAttribute("BoardVO",board);
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String updatePOST(BoardVO board, RedirectAttributes ra) throws Exception {
+		logger.info("updateGET!!!");
+		service.update(board);
+		ra.addFlashAttribute("result", "updateOK");
+		return "redirect:/board/read?board_number="+board.getBoard_number();
+	}
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public void deleteGET(@RequestParam("board_number") Integer board_number, Model model) throws Exception {
+		logger.info("deleteGET");
+		BoardVO board = service.read(board_number);
+		model.addAttribute("BoardVO", board);
+	}
+	
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public String deletePOST(@RequestParam("board_number") Integer board_number, RedirectAttributes ra) throws Exception {
+		logger.info("deletePOST");
+		service.delete(board_number);
+		ra.addFlashAttribute("result", "deleteOK");
+		return "redirect:/board/listAll";
+		
+	}
 }
