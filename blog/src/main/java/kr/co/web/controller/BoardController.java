@@ -54,6 +54,7 @@ public class BoardController {
 		 logger.info("read GET!!!");
 		 BoardVO board  = service.read(board_number);
 		 model.addAttribute("BoardVO",board);
+		 logger.info(board.toString());
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
@@ -78,7 +79,7 @@ public class BoardController {
 		model.addAttribute("BoardVO", board);
 	}
 	
-	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String deletePOST(@RequestParam("board_number") Integer board_number, RedirectAttributes ra) throws Exception {
 		logger.info("deletePOST");
 		service.delete(board_number);
