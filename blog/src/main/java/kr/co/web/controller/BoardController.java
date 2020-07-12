@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.web.domain.BoardVO;
+import kr.co.web.domain.Criteria;
 import kr.co.web.service.BoardService;
 
 @Controller
@@ -48,6 +49,12 @@ public class BoardController {
 		List<BoardVO> boards = service.listAll();
 		model.addAttribute("list", boards);
 	}
+	
+	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
+	public void listPage(Criteria cri, Model model) throws Exception {
+		logger.info("listPageGET!!!");
+	}
+	
 	
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public void read(@RequestParam("board_number") Integer board_number, Model model) throws Exception{
@@ -85,6 +92,6 @@ public class BoardController {
 		service.delete(board_number);
 		ra.addFlashAttribute("result", "deleteOK");
 		return "redirect:/board/listAll";
-		
 	}
+	
 }

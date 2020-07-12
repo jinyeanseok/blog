@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import kr.co.web.domain.BoardVO;
+import kr.co.web.domain.Criteria;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO{
@@ -22,7 +23,9 @@ public class BoardDAOImpl implements BoardDAO{
 	private static String UPDATE = NS + ".update";
 	private static String DELETE = NS + ".delete";
 	private static String LISTALL = NS + ".listAll";
+	private static String LISTPAGE = NS + ".listPage";
 	private static String GETMAXBOARD_NUMBER = NS + ".getMaxBno";
+	private static String TOTALCOUNT = NS + ".totalCount";
 	
 	@Override
 	public void create(BoardVO board) throws Exception {
@@ -52,7 +55,18 @@ public class BoardDAOImpl implements BoardDAO{
 	}
 	
 	@Override
+	public List<BoardVO> listPage(Criteria cri) throws Exception {
+		return session.selectList(LISTPAGE, cri);
+	}
+	
+	@Override
 	public Integer getMaxBoard_number() throws Exception {
 		return session.selectOne(GETMAXBOARD_NUMBER);
 	}
+	
+	@Override
+	public int totalCount(Criteria cri) throws Exception {
+		return session.selectOne(TOTALCOUNT, cri);
+	}
+	
 }

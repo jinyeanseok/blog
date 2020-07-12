@@ -3,6 +3,7 @@ package kr.co.web.persistence;
 import java.util.List;
 
 import kr.co.web.domain.BoardVO;
+import kr.co.web.domain.Criteria;
 
 public interface BoardDAO {
 
@@ -16,5 +17,9 @@ public interface BoardDAO {
 	
 	public List<BoardVO> listAll() throws Exception;
 	
+	public List<BoardVO> listPage(Criteria cri) throws Exception;
+	
 	public Integer getMaxBoard_number() throws Exception;
+	
+	public int totalCount(Criteria cri) throws Exception;
 }
