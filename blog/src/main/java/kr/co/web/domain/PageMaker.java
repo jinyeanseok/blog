@@ -1,5 +1,8 @@
 package kr.co.web.domain;
 
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
 public class PageMaker {
 	
 	private int displayPageCnt = 10; // 화면에 보여질 페이지 번호 수
@@ -12,7 +15,7 @@ public class PageMaker {
 	private int finalPage; // 맨끝
 	private int firstPage; // 맨처음
 	
-	public PageMaker() {
+	public PageMaker(Criteria cri) {
 		this.cri = cri;
 	}
 	
@@ -62,6 +65,15 @@ public class PageMaker {
 						
 		// 맨처음
 		this.firstPage = 1;
+	}
+	
+	public String makeQuery(int page) {
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+				.queryParam("page", page)
+				.queryParam("perPageNum", this.cri.getPerPageNum())
+				.build()
+				.encode();
+		return uriComponents.toString();
 	}
 	
 	public int getStartPage() {

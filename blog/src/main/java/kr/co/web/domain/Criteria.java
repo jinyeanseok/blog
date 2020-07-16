@@ -1,5 +1,8 @@
 package kr.co.web.domain;
 
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
 public class Criteria {
 	
 	private int page;
@@ -9,6 +12,15 @@ public class Criteria {
 		// TODO Auto-generated constructor stub
 		this.page = 1;
 		this.perPageNum = 10;
+	}
+	
+	public String makeQuery(int page) {
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+				.queryParam("page", page)
+				.queryParam("perPageNum", this.perPageNum)
+				.build()
+				.encode();
+		return uriComponents.toString();
 	}
 	
 	public int getDataStart() {

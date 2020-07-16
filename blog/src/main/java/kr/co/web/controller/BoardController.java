@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.web.domain.BoardVO;
 import kr.co.web.domain.Criteria;
+import kr.co.web.domain.PageMaker;
 import kr.co.web.service.BoardService;
 
 @Controller
@@ -52,7 +53,13 @@ public class BoardController {
 	
 	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
 	public void listPage(Criteria cri, Model model) throws Exception {
-		logger.info("listPageGET!!!");
+		logger.info("listPage!!!");
+		List<BoardVO> boards = service.listPage(cri);
+		model.addAttribute("list", boards);
+		PageMaker pageMaker = new PageMaker(cri);
+		int totalCount = service.totalCount(cri);
+		pageMaker.setTotalDataCount(totalCount);
+		model.addAttribute("pageMaker", pageMaker);
 	}
 	
 	
