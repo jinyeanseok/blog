@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,26 +65,31 @@ public class BoardController {
 	
 	
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public void read(@RequestParam("board_number") Integer board_number, Model model) throws Exception{
+	public void read(@RequestParam("board_number") Integer board_number, @ModelAttribute("cri") Criteria cri, Model model) throws Exception{
+		 // 페이지 목록 유지를 위해 사용되고 있는 page, perPageNum 값 가져오기
 		 logger.info("read GET!!!");
 		 BoardVO board  = service.read(board_number);
 		 model.addAttribute("BoardVO",board);
 		 logger.info(board.toString());
+		 System.out.println("vo 값 확인 :" + cri.getPage());
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public void updateGET(@RequestParam("board_number") Integer board_number, Model model) throws Exception {
+	public void updateGET(@RequestParam("board_number") Integer board_number, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 		logger.info("updateGET!!!");
 		BoardVO board  = service.read(board_number);
 		 model.addAttribute("BoardVO",board);
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String updatePOST(BoardVO board, RedirectAttributes ra) throws Exception {
+	public String updatePOST(BoardVO board, Criteria cri, RedirectAttributes ra) throws Exception {
 		logger.info("updateGET!!!");
 		service.update(board);
 		ra.addFlashAttribute("result", "updateOK");
-		return "redirect:/board/read?board_number="+board.getBoard_number();
+		ra.addAttribute("page", cri.getPage());
+		ra.addAttribute("perPageNum", cri.getPerPageNum());
+		ra.addAttribute("board_number", board.getBoard_number());
+		return "redirect:/board/read";
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)

@@ -12,6 +12,11 @@
 	<form method="post">
 		<div>글번호 : ${BoardVO.board_number}</div>
 		<input type="hidden" name="board_number" value="${BoardVO.board_number}"/>
+		
+		<!-- page와 perPageNum  추가 -->
+		<input type="hidden" name="page" value="${cri.page}" />
+		<input type="hidden" name="perPageNum" value="${cri.perPageNum}" />
+		
 		<div>
 			<div>
 				<label for="title">제목</label>
@@ -31,7 +36,7 @@
 		
 		<div>
 			<button type="submit">등록</button>
-			<button><a href="/board/read?board_number=${BoardVO.board_number}">취소</a></button>
+			<button><a href="/board/read${cri.makeQuery()}&board_number=${BoardVO.board_number}" class="btn btn-danger">취소</a></button>
 		</div>
 	</form>
 </body>

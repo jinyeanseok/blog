@@ -14,25 +14,26 @@ public class Criteria {
 		this.perPageNum = 10;
 	}
 	
-	public String makeQuery(int page) {
+	public String makeQuery() {
 		UriComponents uriComponents = UriComponentsBuilder.newInstance()
 				.queryParam("page", page)
-				.queryParam("perPageNum", this.perPageNum)
+				.queryParam("perPageNum", this.getPerPageNum())
 				.build()
 				.encode();
 		return uriComponents.toString();
 	}
 	
+	
+	
 	public int getDataStart() {
 		return (this.page - 1) * perPageNum;
 	}
-
 	public int getPage() {
 		return page;
 	}
 
 	public void setPage(int page) {
-		if(page < 0) {
+		if(page <= 0) {
 			this.page = 1;
 		}else {
 			this.page = page;
@@ -44,7 +45,11 @@ public class Criteria {
 	}
 
 	public void setPerPageNum(int perPageNum) {
-		this.perPageNum = perPageNum;
+		if(perPageNum <=0 || perPageNum > 100) {
+			this.perPageNum = 10;
+		}else {
+			this.perPageNum = perPageNum;
+		}
 	}
 	
 	@Override

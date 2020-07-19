@@ -61,7 +61,7 @@ public class PageMaker {
 		
 		// 맨끝
 		// +1하는 이유는 저렇게 계산하면 맨끝에서 2번째 페이지가 출력되기때문.
-		this.finalPage = (int)(Math.ceil(totalDataCount / (double)perPageNum)+1);
+		this.finalPage = (int)(Math.ceil(totalDataCount / perPageNum)+1);
 						
 		// 맨처음
 		this.firstPage = 1;
