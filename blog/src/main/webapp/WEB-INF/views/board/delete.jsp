@@ -15,10 +15,9 @@
 	<br />
 	
 	<div>
-		<form action="/board/delete?board_number=${BoardVO.board_number}" method="post">
-			<a><button>예 삭제합니다</button></a>
+		<form method="post">
+			<a><button type="submit">예 삭제합니다</button></a>
 		</form>
-		
 		<button><a href="/board/read?board_number=${BoardVO.board_number}">취소</a></button>	
 	</div>
 	

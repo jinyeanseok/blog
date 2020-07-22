@@ -38,10 +38,35 @@
 		order by board_number desc, create_date desc
 	</select>
 	
+	<!-- 검색 -->
+	<sql id="searchCondition">
+		<if test="searchType != null">
+		
+			<if test="searchType == 't'.toString()">
+				where title like CONCAT('%', #{keyword}, '%')
+			</if>
+			
+			<if test="searchType == 'c'.toString()">
+				where contents like CONCAT('%', #{keyword}, '%')
+			</if>
+			
+			<if test="searchType == 'w'.toString()">
+				where name like CONCAT('%', #{keyword}, '%')
+			</if>
+			
+			<if test="searchType == 'all'.toString()">
+				where title like CONCAT('%', #{keyword}, '%')
+					or contents like CONCAT('%', #{keyword}, '%')
+					or name like CONCAT('%', #{keyword}, '%')
+			</if>
+		</if>
+	</sql>
+	
 	<!-- board 페이징 조회 -->
 	<select id="listPage" resultType="BoardVO">
 		select *
 		from board
+		<include refid="searchCondition"></include>
 		order by board_number desc, create_date desc
 		limit #{dataStart}, #{perPageNum}
 	</select>
@@ -55,6 +80,7 @@
 	<select id="totalCount" resultType="int">
 		select count(board_number)
 		from board
+		<include refid="searchCondition"></include>
 	</select>
 	
 </mapper>

@@ -10,7 +10,9 @@
 <title>Insert title here</title>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+ 
 	<style type="text/css">
 			li {list-style: none; float: left; padding: 6px;}
 			 a:link { color: black; text-decoration: none;}
@@ -33,10 +35,37 @@
 		if(result === "deleteOK") {
 			alert("삭제 되었습니다.");
 		}
-	</script>
-	
 		
-
+		$(function(){
+			setSearchTypeSelect();
+		})
+		
+		function setSearchTypeSelect(){
+			var $searchTypeSel = $('#searchTypeSel');
+			var $keyword = $('#keyword');
+			
+			$searchTypeSel.val('${pageMaker.cri.searchType}').prop("selected",true);
+			//검색 버튼이 눌리면
+			$('#searchBtn').on('click',function(){
+				var searchTypeVal = $searchTypeSel.val();
+				var keywordVal = $keyword.val();
+				
+				if(!searchTypeVal){
+					alert("검색 조건을 선택하세요!");
+					return;
+				}else if(!keywordVal){
+					alert("검색어를 입력하세요!");
+					return;
+				}
+				
+				var url = "listPage?page=1"
+					+ "&perPageNum=" + "${pageMaker.cri.perPageNum}"
+					+ "&searchType=" + searchTypeVal
+					+ "&keyword=" + encodeURIComponent(keywordVal);
+				window.location.href = url;
+			})
+		}
+		</script>
 </head>
 <body>
 
@@ -44,6 +73,20 @@
 		
 	<div class="container">
 		<a href="/board/register"><button class="btn btn-primary">새글 작성</button></a>
+	</div>
+	
+	<div class="container">
+		<select id="searchTypeSel" name="searchType">
+			<option value="">검색조건</option>
+			<option value="t">제목</option>
+			<option value="c">내용</option>
+			<option value="w">작성자</option>
+			<option value="tc">제목+내용</option>
+			<option value="all">전체조건</option>
+		</select>
+		
+		<input type="text" id="keyword" name="keyword" value="${pageMaker.cri.keyword}" placeholder="검색어를 입력하세요"/>
+		<button id="searchBtn" class="btn btn-primary">검색</button>
 	</div>
 	
 	<div class="container">

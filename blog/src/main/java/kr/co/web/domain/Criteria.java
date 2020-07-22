@@ -7,20 +7,44 @@ public class Criteria {
 	
 	private int page;
 	private int perPageNum;
+	private String searchType;
+	private String keyword;
 	
+	public String getSearchType() {
+		return searchType;
+	}
+
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
 	public Criteria() {
 		// TODO Auto-generated constructor stub
 		this.page = 1;
 		this.perPageNum = 10;
+		this.searchType = null;
+		this.keyword = null;
 	}
 	
 	public String makeQuery() {
-		UriComponents uriComponents = UriComponentsBuilder.newInstance()
-				.queryParam("page", page)
-				.queryParam("perPageNum", this.getPerPageNum())
-				.build()
-				.encode();
-		return uriComponents.toString();
+		UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance()
+				.queryParam("page", this.page)
+				.queryParam("perPageNum", this.perPageNum);
+		
+		if(searchType != null) {
+			uriComponentsBuilder
+							.queryParam("searchType", this.searchType)
+							.queryParam("keyword", this.keyword);
+		}
+		return uriComponentsBuilder.build().encode().toString();
 	}
 	
 	

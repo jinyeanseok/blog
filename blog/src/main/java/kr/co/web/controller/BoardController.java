@@ -89,22 +89,31 @@ public class BoardController {
 		ra.addAttribute("page", cri.getPage());
 		ra.addAttribute("perPageNum", cri.getPerPageNum());
 		ra.addAttribute("board_number", board.getBoard_number());
+		ra.addAttribute("searchType", cri.getSearchType());
+		logger.info("검색타입 : " + cri.getSearchType());
+		ra.addAttribute("keyword", cri.getKeyword());
 		return "redirect:/board/read";
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public void deleteGET(@RequestParam("board_number") Integer board_number, Model model) throws Exception {
+	public void deleteGET(@RequestParam("board_number") Integer board_number, Criteria cri, Model model) throws Exception {
 		logger.info("deleteGET");
 		BoardVO board = service.read(board_number);
 		model.addAttribute("BoardVO", board);
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String deletePOST(@RequestParam("board_number") Integer board_number, RedirectAttributes ra) throws Exception {
+	public String deletePOST(@RequestParam("board_number") Integer board_number, Criteria cri, RedirectAttributes ra) throws Exception {
 		logger.info("deletePOST");
 		service.delete(board_number);
 		ra.addFlashAttribute("result", "deleteOK");
-		return "redirect:/board/listAll";
+		ra.addAttribute("page", cri.getPage());
+		ra.addAttribute("perPageNum", cri.getPerPageNum());
+		ra.addAttribute("searchType", cri.getSearchType());
+		ra.addAttribute("keyword", cri.getKeyword());
+		logger.info("검색타입 : " + cri.getSearchType());
+		logger.info("페이지 : " + cri.getPage());
+		return "redirect:/board/listPage";
 	}
 	
 }

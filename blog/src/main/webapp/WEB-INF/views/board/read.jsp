@@ -22,7 +22,8 @@
 		<div>
 			<button><a href="/board/listPage${cri.makeQuery()}" class="btn btn-primary">목록</a></button>
 			<button><a href="/board/update${cri.makeQuery()}&board_number=${BoardVO.board_number}" class="btn btn-warning">수정</a></button>
-			<button><a href="/board/delete?board_number=${BoardVO.board_number}">삭제</a></button>
+			<button><a href="/board/delete${cri.makeQuery()}&board_number=${BoardVO.board_number}">삭제</a></button>
+			
 			
 		</div>
 		
