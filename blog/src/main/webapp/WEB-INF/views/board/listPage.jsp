@@ -44,7 +44,6 @@
 			var $searchTypeSel = $('#searchTypeSel');
 			var $keyword = $('#keyword');
 			
-			$searchTypeSel.val('${pageMaker.cri.searchType}').prop("selected",true);
 			//검색 버튼이 눌리면
 			$('#searchBtn').on('click',function(){
 				var searchTypeVal = $searchTypeSel.val();

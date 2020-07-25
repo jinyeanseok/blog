@@ -59,6 +59,7 @@
 					or contents like CONCAT('%', #{keyword}, '%')
 					or name like CONCAT('%', #{keyword}, '%')
 			</if>
+			
 		</if>
 	</sql>
 	

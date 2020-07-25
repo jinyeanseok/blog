@@ -42,7 +42,7 @@ public class BoardController {
 		
 		ra.addFlashAttribute("register", "registerOK");
 		
-		return "redirect:/board/listAll";
+		return "redirect:/board/listPage";
 	}
 	
 	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
