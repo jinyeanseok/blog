@@ -36,4 +36,10 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String ajaxTest() {
+		logger.info("test");
+		return "test";
+	}
+	
 }

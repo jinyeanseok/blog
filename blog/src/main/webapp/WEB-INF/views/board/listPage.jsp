@@ -102,7 +102,7 @@
 			<c:forEach items="${list}" var="boardVO">
 				<tr>
 					<td>${boardVO.board_number}</td>
-					<td><a href="/board/read${pageMaker.makeQuery(pageMaker.cri.page)}&board_number=${boardVO.board_number}">${boardVO.title }</a></td>
+					<td><a href="/board/readView${pageMaker.makeQuery(pageMaker.cri.page)}&board_number=${boardVO.board_number}">${boardVO.title }</a></td>
 					<td>${boardVO.name}</td>
 					<td><fmt:formatDate pattern="YYYY-MM-dd" value="${boardVO.create_date}"/></td>
 					<td>${boardVO.view_count}</td>

@@ -6,33 +6,39 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="replyMapper">
-	<!-- 댓글 삽입 -->
-	<insert id="createReply">
-		insert into reply (board_number, replyer, replytext)
-		values( #{board_number}, #{replyer}, #{replytext})
-	</insert>
 	
-	<!-- 댓글 수정 -->
-	<update id="updateReply">
-		update reply
-		set replytext = #{replytext}
+   
+   <!-- 댓글 조회 -->
+   	<select id="readReply" resultType="ReplyVO">
+   		select reply_number, replytext, replyer, create_date
+   		from reply
+   		where board_number = #{board_number}
+   	</select>	
+   	
+   	<!-- 댓글 작성 -->
+   	<insert id="writeReply">
+   		insert into reply(board_number, replytext, replyer)
+   		values( #{board_number}, #{replytext}, #{replyer})
+   	</insert>
+   	
+   	<!-- 댓글 수정 -->
+   	<update id="updateReply" parameterType="ReplyVO">
+   		update reply 
+   		set replytext = #{replytext}
+   		where reply_number = #{reply_number}
+   	</update>
+   	
+   	<!-- 댓글 삭제 -->
+   	<delete id="deleteReply" parameterType="ReplyVO">
+   		delete
+   		from reply 
+   		where reply_number = #{reply_number}
+   	</delete>
+   	
+   	<!-- 선택된 댓글 조회 -->
+	<select id="selectReply" resultType="ReplyVO">
+		select board_number, reply_number, replytext, replyer, create_date
+		from reply
 		where reply_number = #{reply_number}
-	</update>
-	<!-- 댓글 삭제 -->
-	<delete id="deleteReply">
-		delete from reply where reply_number = #{reply_number}
-	</delete>
-    <!-- 페이지에 해당하는 댓글 목록 조회 -->
-	<select id="listPageReply" resultType="ReplyVO">
-		select *
-		from reply
-		where board_number = #{board_number}
-		order by reply_number desc
-		limit #{cri.dataStart}, #{cri.perPageNum}
-	</select>
-	<select id="getTotalCountReply" resultType="int">
-		select count(board_number)
-		from reply
-		where board_number = #{board_number}
-	</select>	
+	</select>   	
 </mapper>

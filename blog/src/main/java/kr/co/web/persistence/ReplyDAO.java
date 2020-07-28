@@ -7,9 +7,9 @@ import kr.co.web.domain.ReplyVO;
 
 public interface ReplyDAO {
 	
-	public void create(ReplyVO reply) throws Exception;
-	public void update(ReplyVO reply) throws Exception;
-	public void delete(Integer reply_number) throws Exception;
-	public List<ReplyVO> listPage(Integer board_number, Criteria cri) throws Exception;
-	int getTotalCount(Integer board_number);
+	public void create(ReplyVO vo) throws Exception;
+	public void update(ReplyVO vo) throws Exception;
+	public void delete(ReplyVO vo) throws Exception;
+	public List<ReplyVO> readReply(int board_number) throws Exception;
+	public ReplyVO selectReply(int reply_number) throws Exception;
 }

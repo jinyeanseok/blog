@@ -17,7 +17,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import kr.co.web.domain.BoardVO;
 import kr.co.web.domain.Criteria;
 import kr.co.web.domain.PageMaker;
+import kr.co.web.domain.ReplyVO;
 import kr.co.web.service.BoardService;
+import kr.co.web.service.ReplyService;
 
 @Controller
 @RequestMapping("/board/*")
@@ -28,6 +30,9 @@ public class BoardController {
 	
 	@Inject
 	private BoardService service;
+	
+	@Inject
+	private ReplyService replyService;
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public void registerGET(BoardVO board) throws Exception {
@@ -74,6 +79,19 @@ public class BoardController {
 		 System.out.println("vo 값 확인 :" + cri.getPage());
 	}
 	
+	@RequestMapping(value = "/readView", method = RequestMethod.GET)
+	public String readReply(BoardVO board, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+		logger.info("read");
+		
+		model.addAttribute("BoardVO", service.read(board.getBoard_number()));
+		model.addAttribute("cri", cri);
+		
+		List<ReplyVO> replyList = replyService.readReply(board.getBoard_number());
+		model.addAttribute("replyList", replyList);
+		
+		return "board/readView";
+	}
+	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public void updateGET(@RequestParam("board_number") Integer board_number, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 		logger.info("updateGET!!!");
@@ -116,4 +134,69 @@ public class BoardController {
 		return "redirect:/board/listPage";
 	}
 	
+	@RequestMapping(value = "/replyWrite", method = RequestMethod.POST)
+	public String replyWrite(ReplyVO vo, Criteria cri, RedirectAttributes ra) throws Exception {
+		logger.info("reply write");
+		
+		replyService.register(vo);
+		
+		ra.addAttribute("board_number", vo.getBoard_number());
+		ra.addAttribute("page", cri.getPage());
+		ra.addAttribute("perPageNum", cri.getPerPageNum());
+		ra.addAttribute("searchType", cri.getSearchType());
+		ra.addAttribute("keyword", cri.getKeyword());
+		
+		System.out.println("댓글번호 : " + vo.getReply_number());
+		return "redirect:/board/readView";
+	}
+	
+	@RequestMapping(value="/replyUpdateView", method = RequestMethod.GET)
+	public String replyUpdateView(ReplyVO vo, Criteria cri, Model model) throws Exception {
+		logger.info("reply write");
+		
+		ReplyVO reply = replyService.selectReply(vo.getReply_number());
+		logger.info("댓글번호 : " + reply.getReply_number());
+		model.addAttribute("replyUpdate", replyService.selectReply(vo.getReply_number()));
+		model.addAttribute("cri", cri);
+
+		return "board/replyUpdateView";
+	}
+	
+	@RequestMapping(value="/replyUpdate", method = RequestMethod.POST)
+	public String replyUpdate(ReplyVO vo, Criteria cri, RedirectAttributes ra) throws Exception {
+		logger.info("reply Write");
+		
+		replyService.modify(vo);
+		
+		ra.addAttribute("board_number", vo.getBoard_number());
+		ra.addAttribute("page", cri.getPage());
+		ra.addAttribute("perPageNum", cri.getPerPageNum());
+		
+		return "redirect:/board/readView";
+	}
+	
+	@RequestMapping(value="/replyDeleteView", method = RequestMethod.GET)
+	public String replyDeleteView(ReplyVO vo, Criteria cri, Model model) throws Exception {
+		logger.info("reply Delete");
+		
+		model.addAttribute("replyDelete", replyService.selectReply(vo.getReply_number()));
+		System.out.println("댓글 번호 : " + replyService.selectReply(vo.getReply_number()) );
+		model.addAttribute("cri", cri);
+		
+		return "board/replyDeleteView";
+	}
+	
+	@RequestMapping(value="/replyDelete", method = RequestMethod.POST)
+	public String replyDelete(ReplyVO vo, Criteria cri, RedirectAttributes ra) throws Exception {
+		logger.info("reply delete");
+		
+		replyService.remove(vo);
+		
+		ra.addAttribute("board_number", vo.getBoard_number());
+		ra.addAttribute("page", cri.getPage());
+		ra.addAttribute("perPageNum", cri.getPerPageNum());
+		
+		return "redirect:/board/readView";
+	
+	}
 }

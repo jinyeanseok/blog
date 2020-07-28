@@ -17,27 +17,27 @@ public class ReplyServiceImpl implements ReplyService{
 	ReplyDAO replyDAO;
 	
 	@Override
-	public void register(ReplyVO reply) throws Exception {
-		replyDAO.create(reply);
+	public void register(ReplyVO vo) throws Exception {
+		replyDAO.create(vo);
 		
 	}
 	@Override
-	public void modify(ReplyVO reply) throws Exception {
-		replyDAO.update(reply);
+	public void modify(ReplyVO vo) throws Exception {
+		replyDAO.update(vo);
 		
 	}
 	@Override
-	public void remove(Integer reply_number) throws Exception {
-		replyDAO.delete(reply_number);
-	}
-	@Override
-	public List<ReplyVO> listReplyPage(Integer board_number, Criteria cri) throws Exception {
-		return replyDAO.listPage(board_number, cri);
-	}
-	@Override
-	public int getTotalCount(Integer board_number) throws Exception {
-		return replyDAO.getTotalCount(board_number);
+	public void remove(ReplyVO vo) throws Exception {
+		replyDAO.delete(vo);
 	}
 	
+	@Override
+	public List<ReplyVO> readReply(int board_number) throws Exception {
+		return replyDAO.readReply(board_number);
+	}
 	
+	@Override
+	public ReplyVO selectReply(int reply_number) throws Exception {
+		return replyDAO.selectReply(reply_number);
+	}
 }

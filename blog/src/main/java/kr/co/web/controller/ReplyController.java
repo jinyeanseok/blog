@@ -55,40 +55,16 @@ public class ReplyController {
 		}
 	}
 	
-	@RequestMapping(value = "/{reply_number}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> delete(@PathVariable("reply_number") Integer reply_number){
-		logger.debug("ReplyDelete>>{}", reply_number);
-		try {
-			service.remove(reply_number);
-			return new ResponseEntity<>("ReplyDeleteOK", HttpStatus.OK);
-		} catch(Exception e) {
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
-	}
+//	@RequestMapping(value = "/{reply_number}", method = RequestMethod.DELETE)
+//	public ResponseEntity<String> delete(@PathVariable("reply_number") Integer reply_number){
+//		logger.debug("ReplyDelete>>{}", reply_number);
+//		try {
+//			service.remove(reply_number);
+//			return new ResponseEntity<>("ReplyDeleteOK", HttpStatus.OK);
+//		} catch(Exception e) {
+//			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//		}
+//	}
 	
-	@RequestMapping(value = "/all/{board_number}/{page}", method = RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> listPage(@PathVariable("board_number") Integer board_number,
-							    @PathVariable("page") Integer page){
-		logger.debug("ReplyList>>{}", board_number);
-		try {
-			Map<String, Object> map = new HashMap<>();
-			Criteria cri = new Criteria();
-			cri.setPage(page);
-			PageMaker pagemaker = new PageMaker(cri);
-            		
-			//해당 게시물에 ? page에 있는 댓글을 조회해 옴
-			List<ReplyVO> list = service.listReplyPage(board_number, cri);
-			map.put("list", list);
-			
-			//뷰에서 페이지 번호를 그리기 위해 PageMaker 객체 이용 
-			int replyCount = service.getTotalCount(board_number);
-			pagemaker.setTotalDataCount(replyCount);
-			map.put("pageMaker", pagemaker);
-			
-			return new ResponseEntity<>(map, HttpStatus.OK);
-		} catch(Exception e) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		
-	}
+	
 }
