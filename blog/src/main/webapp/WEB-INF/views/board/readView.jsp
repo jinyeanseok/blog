@@ -77,7 +77,7 @@
 			
 			<div>
 				<label for="name">작성자</label>
-				<input type="text" name="name" id="name" value="${BoardVO.name}" readonly="readonly"/>		
+				<input type="text" name="name" id="name" value="${user.name}" readonly="readonly"/>		
 			</div>
 		</div>
 		

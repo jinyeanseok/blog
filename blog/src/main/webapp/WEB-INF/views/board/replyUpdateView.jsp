@@ -31,8 +31,6 @@
 					<input type="hidden" id="reply_number" name="reply_number" value="${replyUpdate.reply_number}" />
 					<input type="hidden" id="page" name="page" value="${cri.page}"> 
 					<input type="hidden" id="perPageNum" name="perPageNum" value="${cri.perPageNum}"> 
-					<input type="hidden" id="searchType" name="searchType" value="${cri.searchType}"> 
-					<input type="hidden" id="keyword" name="keyword" value="${cri.keyword}"> 
 					<table>
 						<tbody>
 							<tr>

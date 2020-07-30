@@ -26,6 +26,7 @@
 	    	<list>
 	    		<value>classpath:mappers/boardMapper.xml</value>
 	    		<value>classpath:mappers/replyMapper.xml</value>
+	    		<value>classpath:mappers/userMapper.xml</value>
 	    	</list>
 	     </property>
 	</bean>

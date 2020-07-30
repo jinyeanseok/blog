@@ -3,6 +3,7 @@ package kr.co.web.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,8 +36,14 @@ public class BoardController {
 	private ReplyService replyService;
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public void registerGET(BoardVO board) throws Exception {
+	public void registerGET(HttpSession session, Model model) throws Exception {
 		logger.info("register GET !!");
+		
+		Object loginInfo = session.getAttribute("user");
+		
+		if(loginInfo == null) {
+			model.addAttribute("result", "loginFalse");
+		}
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -58,7 +65,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
-	public void listPage(Criteria cri, Model model) throws Exception {
+	public void listPage(Criteria cri, HttpSession session, Model model) throws Exception {
 		logger.info("listPage!!!");
 		List<BoardVO> boards = service.listPage(cri);
 		model.addAttribute("list", boards);
@@ -66,6 +73,10 @@ public class BoardController {
 		int totalCount = service.totalCount(cri);
 		pageMaker.setTotalDataCount(totalCount);
 		model.addAttribute("pageMaker", pageMaker);
+		Object loginInfo = session.getAttribute("user");
+		if(loginInfo == null) {
+			model.addAttribute("result", "loginFalse");
+		}
 	}
 	
 	
@@ -197,6 +208,5 @@ public class BoardController {
 		ra.addAttribute("perPageNum", cri.getPerPageNum());
 		
 		return "redirect:/board/readView";
-	
 	}
 }

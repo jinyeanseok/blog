@@ -70,9 +70,11 @@
 
 	<h1 align="center"><a href="/">게시판</a></h1><hr />
 		
+	<c:if test="${result == null }">
 	<div class="container">
 		<a href="/board/register"><button class="btn btn-primary">새글 작성</button></a>
 	</div>
+	</c:if>
 	
 	<div class="container">
 		<select id="searchTypeSel" name="searchType">
