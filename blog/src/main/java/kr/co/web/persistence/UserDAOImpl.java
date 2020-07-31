@@ -18,6 +18,7 @@ public class UserDAOImpl implements UserDAO{
 	private static final String LOGIN = NS + ".login";
 	private static final String MODIFY = NS + ".modify";
 	private static final String REMOVE = NS + ".remove";
+	private static final String IDOVERLAP = NS + ".idOverlap";
 	
 	@Override
 	public void register(UserVO vo) throws Exception {
@@ -37,5 +38,11 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public void remove(UserVO vo) throws Exception {
 		session.delete(REMOVE, vo);
+	}
+	
+	@Override
+	public int idOverlap(UserVO vo) throws Exception {
+		int result = session.selectOne(IDOVERLAP, vo);
+		return result;
 	}
 }

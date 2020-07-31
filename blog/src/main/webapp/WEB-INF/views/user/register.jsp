@@ -3,6 +3,28 @@
 <html>
 <head>
  <title>게시판</title> 
+ 
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ 
+ <script type="text/javascript">
+ 	
+	function fn_idOverlap() {
+		$.ajax({
+			url : "/user/idOverlap",
+			type : "post",
+			dataType : "json",
+			data : { "identification" : $("#identification").val()},
+			success : function(data) {
+				if(data == 1) {
+					alert("중복된 아이디 입니다.");
+				} else if(data == 0) {
+					alert("사용가능한 아이디 입니다.");
+				}
+			}
+		})
+	}
+
+ </script>
 </head>
 <body>
 
@@ -11,6 +33,7 @@
  	<div>
  		<label for="identification">아이디</label>
  		<input type="text" id="identification" name="identification" />
+ 		<button type="button" id="idOverlap" onclick="fn_idOverlap();">중복확인</button>
  	</div>
  	
  	<div>

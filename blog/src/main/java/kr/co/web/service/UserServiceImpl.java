@@ -32,4 +32,10 @@ public class UserServiceImpl implements UserService {
 	public void remove(UserVO vo) throws Exception {
 		user.remove(vo);
 	}
+	
+	@Override
+	public int idOverlap(UserVO vo) throws Exception {
+		int result = user.idOverlap(vo);
+		return result;
+	}
 }

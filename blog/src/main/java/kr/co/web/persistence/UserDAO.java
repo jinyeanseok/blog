@@ -8,4 +8,5 @@ public interface UserDAO {
 	public UserVO login(UserVO vo) throws Exception;
 	public void modify(UserVO vo) throws Exception;
 	public void remove(UserVO vo) throws Exception;
-}
+	public int idOverlap(UserVO vo) throws Exception;
+} 

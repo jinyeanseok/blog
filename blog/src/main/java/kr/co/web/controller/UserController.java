@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.web.domain.UserVO;
@@ -31,14 +32,21 @@ public class UserController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String registerPOST(UserVO vo, RedirectAttributes ra) throws Exception {
 		logger.info("registerPOST");
-		service.register(vo);
-		ra.addFlashAttribute("result", "registerOK");
 		
+		int result = service.idOverlap(vo);
+		
+		if(result == 1) {
+			return "/user/register";
+		} else if(result == 0) {
+			service.register(vo);
+			ra.addFlashAttribute("result", "registerOK");
+		}
+			
 		return "redirect:/";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginGET(UserVO vo, HttpServletRequest req, RedirectAttributes ra) throws Exception {
+	public String loginPOST(UserVO vo, HttpServletRequest req, RedirectAttributes ra) throws Exception {
 		logger.info("post login");
 		
 		// HttpServletRequest를 사용하면 값을 받아 올수 있다.
@@ -51,7 +59,7 @@ public class UserController {
 			ra.addFlashAttribute("result", "loginFalse");
 		} else {
 			session.setAttribute("user", login);
-			String id = req.getParameter("identification");
+			String id = req.getParameter("identification"); // 확인용
 			ra.addFlashAttribute("result", "loginOK");
 		}
 		return "redirect:/";
@@ -101,6 +109,13 @@ public class UserController {
 			ra.addFlashAttribute("result", "removeFalse");
 			return "redirect:/user/remove";
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/idOverlap", method = RequestMethod.POST)
+	public int idOverlap(UserVO vo) throws Exception {
+		int result = service.idOverlap(vo);
+		return result;
 	}
 	
 }
