@@ -18,6 +18,12 @@
    		where identification = #{identification} and password = #{password}
    </select>
    
+   <select id="loginBcrypt" resultType="UserVO">
+   		select identification, name, password
+   		from user
+   		where identification = #{identification}
+   </select>
+   
    <update id="modify">
    		update user
    		set password = #{password}

@@ -16,6 +16,7 @@ public class UserDAOImpl implements UserDAO{
 	private static final String NS = "userMapper";
 	private static final String REGISTER = NS + ".register";
 	private static final String LOGIN = NS + ".login";
+	private static final String LOGINBCRYPT = NS + ".loginBcrypt";
 	private static final String MODIFY = NS + ".modify";
 	private static final String REMOVE = NS + ".remove";
 	private static final String IDOVERLAP = NS + ".idOverlap";
@@ -27,7 +28,7 @@ public class UserDAOImpl implements UserDAO{
 	
 	@Override
 	public UserVO login(UserVO vo) throws Exception {
-		return session.selectOne(LOGIN, vo);
+		return session.selectOne(LOGINBCRYPT, vo);
 	}
 	
 	@Override

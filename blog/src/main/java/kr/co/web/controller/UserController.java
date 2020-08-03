@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,9 @@ public class UserController {
 
 	@Inject
 	private UserService service;
+	
+	@Inject
+	private BCryptPasswordEncoder pwdEncoder;
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
@@ -38,6 +42,9 @@ public class UserController {
 		if(result == 1) {
 			return "/user/register";
 		} else if(result == 0) {
+			String PlaintextPassword = vo.getPassword();
+			String encryptionPassword = pwdEncoder.encode(PlaintextPassword);
+			vo.setPassword(encryptionPassword);
 			service.register(vo);
 			ra.addFlashAttribute("result", "registerOK");
 		}
@@ -51,16 +58,17 @@ public class UserController {
 		
 		// HttpServletRequest를 사용하면 값을 받아 올수 있다.
 		HttpSession session = req.getSession();
-		
 		UserVO login = service.login(vo);
-		
-		if(login == null) {
+		logger.info("원래 비밀번호 : " + login.getPassword());
+		logger.info("로그인할때 입력한 비밀번호 : " + vo.getPassword());
+		boolean passwordMatch = pwdEncoder.matches(vo.getPassword(), login.getPassword());
+		logger.info("원래 비밀번호와 로그인할 때 입력한 비밀번호가 같으면 트루 : " + passwordMatch);
+		if(login != null && passwordMatch == true) {
+			session.setAttribute("user", login);
+			ra.addFlashAttribute("result", "loginOK");
+		} else {
 			session.setAttribute("user", null);
 			ra.addFlashAttribute("result", "loginFalse");
-		} else {
-			session.setAttribute("user", login);
-			String id = req.getParameter("identification"); // 확인용
-			ra.addFlashAttribute("result", "loginOK");
 		}
 		return "redirect:/";
 	}
@@ -80,6 +88,10 @@ public class UserController {
 	@RequestMapping(value ="/modify", method = RequestMethod.POST)
 	public String modifyPOST(HttpSession session, UserVO vo, RedirectAttributes ra) throws Exception {
 		logger.info("modifyPOST");		
+		
+		String PlaintextPassword = vo.getPassword();
+		String encryptionPassword = pwdEncoder.encode(PlaintextPassword);
+		vo.setPassword(encryptionPassword);
 		service.modify(vo);
 		session.invalidate();
 		ra.addFlashAttribute("result", "updateOK");
@@ -98,10 +110,15 @@ public class UserController {
 		UserVO user = (UserVO)session.getAttribute("user");
 		
 		String oldPass = user.getPassword();
+		logger.info("로그인할 때 입력한 비밀번호  = " + oldPass);
 		String newPass = vo.getPassword();
+		logger.info("회원탈퇴할 때 입력한 비밀번호 = " + newPass);
 		
-		if(oldPass.equals(newPass)) {
-			service.remove(vo);
+		boolean passwordMatch = pwdEncoder.matches(newPass, oldPass);  // 첫번째 인자는 평문, 두번 째 인자는 암호화로 설정해야 오류가 안난다.
+		System.out.println("비밀번호 비교 : " + passwordMatch);
+		
+		if(passwordMatch == true) {
+			service.remove(user);
 			ra.addFlashAttribute("result", "removeOK");
 			session.invalidate();
 			return "redirect:/";
