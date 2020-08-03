@@ -59,8 +59,17 @@ public class UserController {
 		// HttpServletRequest를 사용하면 값을 받아 올수 있다.
 		HttpSession session = req.getSession();
 		UserVO login = service.login(vo);
+		
+		// 이렇게 안하면 db에 없는 아이디를 입력하고 로그인하면 에러코드 발생
+		if(login == null ) { 
+			ra.addFlashAttribute("result", "loginFalse");
+			return "redirect:/";
+		}
+		
 		logger.info("원래 비밀번호 : " + login.getPassword());
 		logger.info("로그인할때 입력한 비밀번호 : " + vo.getPassword());
+		
+		
 		boolean passwordMatch = pwdEncoder.matches(vo.getPassword(), login.getPassword());
 		logger.info("원래 비밀번호와 로그인할 때 입력한 비밀번호가 같으면 트루 : " + passwordMatch);
 		if(login != null && passwordMatch == true) {
