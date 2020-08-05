@@ -77,7 +77,7 @@
 			
 			<div>
 				<label for="name">작성자</label>
-				<input type="text" name="name" id="name" value="${user.name}" readonly="readonly"/>		
+				<input type="text" name="name" id="name" value="${BoardVO.name}" readonly="readonly"/>		
 			</div>
 		</div>
 		
@@ -105,8 +105,6 @@
 		  <input type="hidden" id="board_number" name="board_number" value="${BoardVO.board_number}" />
 		  <input type="hidden" id="page" name="page" value="${cri.page}"> 
 		  <input type="hidden" id="perPageNum" name="perPageNum" value="${cri.perPageNum}"> 
-		  <input type="hidden" id="searchType" name="searchType" value="${cri.searchType}"> 
-		  <input type="hidden" id="keyword" name="keyword" value="${cri.keyword}"> 
 		
 		  <div>
 		    <label for="replyer">댓글 작성자</label><input type="text" id="replyer" name="replyer" />

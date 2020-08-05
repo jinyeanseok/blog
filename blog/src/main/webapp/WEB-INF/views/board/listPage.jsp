@@ -104,7 +104,11 @@
 			<c:forEach items="${list}" var="boardVO">
 				<tr>
 					<td>${boardVO.board_number}</td>
-					<td><a href="/board/readView${pageMaker.makeQuery(pageMaker.cri.page)}&board_number=${boardVO.board_number}">${boardVO.title }</a></td>
+					<td><a href="/board/readView${pageMaker.makeQuery(pageMaker.cri.page)}&board_number=${boardVO.board_number}">${boardVO.title }
+						<c:if test="${boardVO.reply_count ne 0}">
+							<small><b>[&nbsp;<c:out value="${boardVO.reply_count}"/>&nbsp;]</b></small>
+						</c:if>
+					</a></td>
 					<td>${boardVO.name}</td>
 					<td><fmt:formatDate pattern="YYYY-MM-dd" value="${boardVO.create_date}"/></td>
 					<td>${boardVO.view_count}</td>

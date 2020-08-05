@@ -24,4 +24,6 @@ public interface BoardDAO {
 	public int totalCount(Criteria cri) throws Exception;
 	
 	public int viewCount(int board_number) throws Exception;
+	
+	public void updateReplyCount(int board_number) throws Exception;
 }

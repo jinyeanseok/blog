@@ -9,7 +9,17 @@ public class BoardVO {
 	private String name;
 	private Date create_date;
 	private int view_count;
+	private int reply_count;
 	
+
+	public int getReply_count() {
+		return reply_count;
+	}
+
+	public void setReply_count(int reply_count) {
+		this.reply_count = reply_count;
+	}
+
 	public Integer getBoard_number() {
 		return board_number;
 	}

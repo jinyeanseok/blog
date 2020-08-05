@@ -32,8 +32,6 @@
 					<input type="hidden" id="replytext" name="replytext" value="${replyDelete.replytext}" />
 					<input type="hidden" id="page" name="page" value="${cri.page}"> 
 					<input type="hidden" id="perPageNum" name="perPageNum" value="${cri.perPageNum}"> 
-					<input type="hidden" id="searchType" name="searchType" value="${cri.searchType}"> 
-					<input type="hidden" id="keyword" name="keyword" value="${cri.keyword}"> 
 					<div>
 						<p>삭제 하시겠습니까?</p>
 						<button type="submit" class="delete_btn">삭제</button>

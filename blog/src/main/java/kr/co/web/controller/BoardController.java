@@ -95,6 +95,7 @@ public class BoardController {
 		logger.info("read");
 		
 		service.viewCount(board_number);
+		service.updateReplyCount(board_number);
 		model.addAttribute("BoardVO", service.read(board.getBoard_number()));
 		model.addAttribute("cri", cri);
 		

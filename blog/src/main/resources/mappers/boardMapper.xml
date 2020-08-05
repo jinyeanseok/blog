@@ -90,4 +90,10 @@
 		where board_number = #{board_number}
 	</update>
 	
+	<update id="updateReplyCount" parameterType="int">
+		update board b
+		set b.reply_count = (select count(reply_number) from reply where board_number = #{board_number})
+		where b.board_number = #{board_number}
+	</update>
+	
 </mapper>

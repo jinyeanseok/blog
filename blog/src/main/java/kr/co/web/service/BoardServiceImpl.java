@@ -55,5 +55,10 @@ public class BoardServiceImpl implements BoardService{
 	public int viewCount(int board_number) throws Exception {
 		return boardDAO.viewCount(board_number);
 	}
+	
+	@Override
+	public void updateReplyCount(int board_number) throws Exception {
+		boardDAO.updateReplyCount(board_number);
+	}
 
 }
