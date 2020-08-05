@@ -24,9 +24,16 @@
 			</div>
 			
 			<div>
+				<label for="identification">아이디</label>
+				<input type="text" name="identification" id="identification" value="${user.identification}" readonly="readonly" required/>		
+			</div>
+			
+			<div>
 				<label for="name">작성자</label>
 				<input type="text" name="name" id="name" value="${user.name}" readonly="readonly" required/>		
 			</div>
+			
+			
 		</div>
 		
 		<div>

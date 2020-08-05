@@ -10,7 +10,16 @@ public class BoardVO {
 	private Date create_date;
 	private int view_count;
 	private int reply_count;
+	private String identification;
 	
+
+	public String getIdentification() {
+		return identification;
+	}
+
+	public void setIdentification(String identification) {
+		this.identification = identification;
+	}
 
 	public int getReply_count() {
 		return reply_count;

@@ -24,7 +24,7 @@
  	
  	</script>
 </head>
-<a href="/board/listPage">게시판</a><br />
+
 
 <body>
 	

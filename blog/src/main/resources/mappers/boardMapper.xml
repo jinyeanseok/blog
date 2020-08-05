@@ -8,8 +8,8 @@
 <mapper namespace="BoardMapper">
 	<!-- 데이터 삽입 -->
 	<insert id="create">
-		insert into board (title, contents, name)
-		values( #{title}, #{contents}, #{name})
+		insert into board (title, contents, identification, name)
+		values( #{title}, #{contents}, #{identification}, #{name})
 	</insert>
 	
 	<!-- 행 검색 -->
