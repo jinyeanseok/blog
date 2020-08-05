@@ -91,9 +91,10 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/readView", method = RequestMethod.GET)
-	public String readReply(BoardVO board, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+	public String readReply(BoardVO board, @RequestParam("board_number") Integer board_number, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 		logger.info("read");
 		
+		service.viewCount(board_number);
 		model.addAttribute("BoardVO", service.read(board.getBoard_number()));
 		model.addAttribute("cri", cri);
 		

@@ -39,7 +39,9 @@ public class UserController {
 		
 		int result = service.idOverlap(vo);
 		
+		System.out.println("중복은 1 아니면 0 = " + result );
 		if(result == 1) {
+			ra.addFlashAttribute("result", "registerFalse");
 			return "/user/register";
 		} else if(result == 0) {
 			String PlaintextPassword = vo.getPassword();
@@ -48,7 +50,7 @@ public class UserController {
 			service.register(vo);
 			ra.addFlashAttribute("result", "registerOK");
 		}
-			
+		
 		return "redirect:/";
 	}
 	

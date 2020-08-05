@@ -50,5 +50,10 @@ public class BoardServiceImpl implements BoardService{
 	public int totalCount(Criteria cri) throws Exception {
 		return boardDAO.totalCount(cri);
 	}
+	
+	@Override
+	public int viewCount(int board_number) throws Exception {
+		return boardDAO.viewCount(board_number);
+	}
 
 }

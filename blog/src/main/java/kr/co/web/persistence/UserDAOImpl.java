@@ -46,4 +46,5 @@ public class UserDAOImpl implements UserDAO{
 		int result = session.selectOne(IDOVERLAP, vo);
 		return result;
 	}
+	
 }

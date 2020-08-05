@@ -26,6 +26,7 @@ public class BoardDAOImpl implements BoardDAO{
 	private static String LISTPAGE = NS + ".listPage";
 	private static String GETMAXBOARD_NUMBER = NS + ".getMaxBno";
 	private static String TOTALCOUNT = NS + ".totalCount";
+	private static String VIEWCOUNT = NS + ".viewCount";
 	
 	@Override
 	public void create(BoardVO board) throws Exception {
@@ -69,4 +70,8 @@ public class BoardDAOImpl implements BoardDAO{
 		return session.selectOne(TOTALCOUNT, cri);
 	}
 	
+	@Override
+	public int viewCount(int board_number) throws Exception {
+		return session.update(VIEWCOUNT, board_number);
+	}
 }

@@ -22,4 +22,6 @@ public interface BoardDAO {
 	public Integer getMaxBoard_number() throws Exception;
 	
 	public int totalCount(Criteria cri) throws Exception;
+	
+	public int viewCount(int board_number) throws Exception;
 }

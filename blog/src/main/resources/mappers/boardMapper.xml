@@ -84,4 +84,10 @@
 		<include refid="searchCondition"></include>
 	</select>
 	
+	<update id="viewCount" parameterType="int">
+		update board
+		set view_count = view_count+1
+		where board_number = #{board_number}
+	</update>
+	
 </mapper>
