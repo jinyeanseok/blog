@@ -37,6 +37,25 @@
 			 .navbar-brand img {
 			 	width: 100px;
 			 }
+			 
+			 #searchTypeSel {
+			 	width : 80px;
+			 	height : 20px;
+			 	padding: 1px 5px;
+				font-size: 12px;
+				line-height: 1.5;
+				border-radius: 3px;
+			 }
+			 
+			 #keyword {
+			 	width : 200px;
+			 	height : 20px;
+			 	padding: 1px 5px;
+				font-size: 12px;
+				line-height: 1.5;
+				border-radius: 3px;
+			 }
+			 
 	</style>
 
 	<script>
@@ -83,7 +102,7 @@
 <body>
 	
 	
-  <nav class="navbar navbar-default">
+  <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -108,9 +127,9 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-off"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-user"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="/user/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="/user/register"><span class="glyphicon glyphicon-off"></span> Sign Up</a></li>
             <li><a href="/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
           </ul>
         </li>
@@ -119,43 +138,43 @@
   </div><!-- /.container-fluid -->
 </nav>
 	
-	 
-	 
-
-		
-	
-	
-	<div class="container">
-		<c:if test="${result == null }">
-		<div class="container">
-			<a href="/board/register"><button class="btn btn-primary">새글 작성</button></a>
+	 <hr />
+	 <h1 align="center"><a href="/">자유게시판</a></h1>
+	 <div class="container">
+			<c:if test="${result == null }">
+			<div class="container">
+				<a href="/board/register"><button class="btn btn-primary btn-xs">새글 작성</button></a>
+			</div>
+			</c:if>
 		</div>
-		</c:if>
-	<form class="navbar-form navbar-left" role="search">
-		<select id="searchTypeSel" class="form-control" name="searchType">
-			<option value="">검색조건</option>
-			<option value="t">제목</option>
-			<option value="c">내용</option>
-			<option value="w">작성자</option>
-			<option value="tc">제목+내용</option>
-			<option value="all">전체조건</option>
-		</select>
-		
-		<input type="text" class="form-control" id="keyword" name="keyword" value="${pageMaker.cri.keyword}" placeholder="검색어를 입력하세요"/>
-		<button id="searchBtn" class="btn btn-default">검색</button>
-	</form>
+	 <hr />
+	 
+	<div class="container">
+		<form class="navbar-form navbar-left" role="search">
+				<select id="searchTypeSel" class="form-control" name="searchType">
+					<option value="">검색조건</option>
+					<option value="t">제목</option>
+					<option value="c">내용</option>
+					<option value="w">작성자</option>
+					<option value="tc">제목+내용</option>
+					<option value="all">전체조건</option>
+				</select>
+				
+				<input type="text" class="form-control" id="keyword" name="keyword" value="${pageMaker.cri.keyword}" placeholder="검색어를 입력하세요"/>
+				<button id="searchBtn" class="btn btn-default btn-xs">검색</button>
+			</form>
 	</div>
 	
 	<div class="container">
 		<!-- <table class="table table-bordered"> -->
-		<table class="table table-hover">
+		<table class="table table-striped">
 		
 			<tr> <!-- 한줄 -->
-				<th>번호</th> <!-- 첫번째 칸 -->
-				<th>제목</th> <!-- 두번째 칸 -->
-				<th>작성자</th> <!-- 세번째 칸 -->
-				<th>작성일자</th> <!-- 네번째 칸 -->
-				<th>조회수</th>
+				<th>no</th> <!-- 첫번째 칸 -->
+				<th>title</th> <!-- 두번째 칸 -->
+				<th>writer</th> <!-- 세번째 칸 -->
+				<th>date</th> <!-- 네번째 칸 -->
+				<th>views</th>
 			</tr>
 			
 			<c:forEach items="${list}" var="boardVO">
@@ -173,19 +192,22 @@
 			</c:forEach>
 		</table>
 		
+		<br />
+		<br />
+		
 		<!-- 페이지 번호 -->	
 		<div class="text-center">
 			<ul class="pagination">	
 				<!-- 맨처음 버튼 -->
 				<li>
-					<a href="listPage${pageMaker.makeQuery(pageMaker.firstPage)}">맨처음</a>
+					<a href="listPage${pageMaker.makeQuery(pageMaker.firstPage)}">first</a>
 				</li>
 				
 				
 				<!-- 이전 버튼 -->
 				<c:if test="${pageMaker.prev}">
 					<li>
-						<a href="listPage${pageMaker.makeQuery(pageMaker.startPage-1)}">이전</a>
+						<a href="listPage${pageMaker.makeQuery(pageMaker.startPage-1)}">Previous</a>
 					</li>
 				</c:if>
 				
@@ -203,13 +225,13 @@
 				<!-- next 버튼 -->
 				<c:if test="${pageMaker.next}">
 					<li>
-				    	<a href="listPage${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a>
+				    	<a href="listPage${pageMaker.makeQuery(pageMaker.endPage + 1)}">Next</a>
 					</li>
 				</c:if>
 				
 				
 				<li>
-					<a href="listPage${pageMaker.makeQuery(pageMaker.finalPage)}">맨끝</a>
+					<a href="listPage${pageMaker.makeQuery(pageMaker.finalPage)}">end</a>
 				</li>
 				
 			</ul>
