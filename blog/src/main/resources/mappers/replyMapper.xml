@@ -13,6 +13,7 @@
    		select reply_number, replytext, replyer, create_date
    		from reply
    		where board_number = #{board_number}
+   		order by reply_number desc, create_date desc
    	</select>	
    	
    	<!-- 댓글 작성 -->

@@ -123,7 +123,7 @@ public class BoardController {
 		ra.addAttribute("searchType", cri.getSearchType());
 		logger.info("검색타입 : " + cri.getSearchType());
 		ra.addAttribute("keyword", cri.getKeyword());
-		return "redirect:/board/read";
+		return "redirect:/board/readView";
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)

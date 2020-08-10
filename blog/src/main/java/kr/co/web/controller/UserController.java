@@ -80,15 +80,17 @@ public class UserController {
 		} else {
 			session.setAttribute("user", null);
 			ra.addFlashAttribute("result", "loginFalse");
+			return "redirect:/";
 		}
-		return "redirect:/";
+		return "redirect:/board/listPage";
 	}
 	
 	@RequestMapping(value ="/logout", method = RequestMethod.GET)
-	public String logout(HttpSession session) throws Exception {
+	public String logout(HttpSession session, RedirectAttributes ra ) throws Exception {
 		logger.info("logout");
+		ra.addFlashAttribute("logout", "logoutOK");
 		session.invalidate();
-		return "redirect:/";
+		return "redirect:/board/listPage";
 	}
 	
 	@RequestMapping(value ="/modify", method = RequestMethod.GET)

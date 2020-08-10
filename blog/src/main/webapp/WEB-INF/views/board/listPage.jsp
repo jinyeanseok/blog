@@ -35,11 +35,14 @@
 			 h1 { padding: 40px}
 			 
 			 .navbar-brand img {
-			 	width: 100px;
+			 	width: 65px;
+			 	height: 65px;
+			 	margin-top : -10px;
+			 	
 			 }
 			 
 			 #searchTypeSel {
-			 	width : 80px;
+			 	width : 85px;
 			 	height : 20px;
 			 	padding: 1px 5px;
 				font-size: 12px;
@@ -56,6 +59,9 @@
 				border-radius: 3px;
 			 }
 			 
+			 
+			 
+			 
 	</style>
 
 	<script>
@@ -67,6 +73,13 @@
 		var result = "${result}";
 		if(result === "deleteOK") {
 			alert("삭제 되었습니다.");
+		} else if(result === "loginOK") {
+	 		alert("로그인에 성공하였습니다.");
+	 	} 
+
+		var logout = "${logout}";
+		if(logout === "logoutOK") {
+			alert("로그아웃 되었습니다.");
 		}
 		
 		$(function(){
@@ -102,6 +115,7 @@
 <body>
 	
 	
+  <!-- <nav class="navbar navbar-default navbar-fixed-top navbar-inverse"> -->
   <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -113,7 +127,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="/board/listPage">
-				<img alt="brand" src="/resources/image/free_horizontal_on_white_by_logaster.png">
+				<img alt="brand" src="/resources/image/nav3PIXER330.png"  >
 	  </a>
     </div>
 
@@ -121,8 +135,8 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="/board/listPage">자유게시판 <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">코딩게시판</a></li>
-        <li><a href="#">낚시게시판</a></li>
+        <li><a href="/coding/listPage">코딩게시판</a></li>
+        <li><a href="/fishing/listPage">낚시게시판</a></li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -130,7 +144,23 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-user"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="/user/register"><span class="glyphicon glyphicon-off"></span> Sign Up</a></li>
-            <li><a href="/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            
+            <c:if test="${user == null }">
+          	  <li><a href="/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </c:if>
+            
+            <c:if test="${user != null }">
+         	   <li><a href="/user/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </c:if>
+            
+            <c:if test="${user != null }">
+          	  <li><a href="/user/modify"><span class="glyphicon glyphicon glyphicon-pencil"></span> modify</a></li>
+            </c:if>
+            
+            <c:if test="${user != null }">
+         	   <li><a href="/user/remove"><span class="glyphicon glyphicon glyphicon-remove"></span> remove</a></li>
+            </c:if>
+            
           </ul>
         </li>
       </ul>
@@ -139,9 +169,12 @@
 </nav>
 	
 	 <hr />
-	 <h1 align="center"><a href="/">자유게시판</a></h1>
+	 <br />
+	 <br />
+	 <br />
+	 <h1 align="center"><a href="/board/listPage">자유게시판</a></h1>
 	 <div class="container">
-			<c:if test="${result == null }">
+			<c:if test="${user != null }">
 			<div class="container">
 				<a href="/board/register"><button class="btn btn-primary btn-xs">새글 작성</button></a>
 			</div>
@@ -164,6 +197,8 @@
 				<button id="searchBtn" class="btn btn-default btn-xs">검색</button>
 			</form>
 	</div>
+	
+	<br />
 	
 	<div class="container">
 		<!-- <table class="table table-bordered"> -->

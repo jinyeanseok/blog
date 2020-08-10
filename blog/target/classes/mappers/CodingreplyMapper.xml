@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- DTD 선언 -->
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="CodingreplyMapper">
+	
+   
+   <!-- 댓글 조회 -->
+   	<select id="readReplyCoding" resultType="CodingReplyVO">
+   		select reply_number, replytext, replyer, create_date
+   		from Codingreply
+   		where board_number = #{board_number}
+   		order by reply_number desc, create_date desc
+   	</select>	
+   	
+   	<!-- 댓글 작성 -->
+   	<insert id="writeReplyCoding">
+   		insert into Codingreply(board_number, replytext, replyer)
+   		values( #{board_number}, #{replytext}, #{replyer})
+   	</insert>
+   	
+   	<!-- 댓글 수정 -->
+   	<update id="updateReplyCoding" parameterType="CodingReplyVO">
+   		update Codingreply 
+   		set replytext = #{replytext}
+   		where reply_number = #{reply_number}
+   	</update>
+   	
+   	<!-- 댓글 삭제 -->
+   	<delete id="deleteReplyCoding" parameterType="CodingReplyVO">
+   		delete
+   		from Codingreply 
+   		where reply_number = #{reply_number}
+   	</delete>
+   	
+   	<!-- 선택된 댓글 조회 -->
+	<select id="selectReplyCoding" resultType="CodingReplyVO">
+		select board_number, reply_number, replytext, replyer, create_date
+		from Codingreply
+		where reply_number = #{reply_number}
+	</select> 
+		
+</mapper>

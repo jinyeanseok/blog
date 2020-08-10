@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- DTD 선언 -->
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="CodingBoardMapper">
+	<!-- 데이터 삽입 -->
+	<insert id="createCoding">
+		insert into codingboard (title, contents, identification, name)
+		values( #{title}, #{contents}, #{identification}, #{name})
+	</insert>
+	
+	<!-- 행 검색 -->
+	<select id="readCoding" resultType="CodingBoardVO">
+		select *
+		from codingboard
+		where board_number = #{board_number}
+	</select>
+	
+	<!-- 행 수정 -->
+	<update id="updateCoding">
+		update codingboard
+		set title = #{title}, contents = #{contents}
+		where board_number = #{board_number}
+	</update>
+	
+	<!-- 행 삭제 -->
+	<delete id="deleteCoding">
+		delete from codingboard where board_number = #{board_number}
+	</delete>
+	
+	<!-- board 전체 행 조회 -->
+	<select id="listAllCoding" resultType="CodingBoardVO">
+		select *
+		from codingboard
+		order by board_number desc, create_date desc
+	</select>
+	
+	<!-- 검색 -->
+	<sql id="searchCondition">
+		<if test="searchType != null">
+		
+			<if test="searchType == 't'.toString()">
+				where title like CONCAT('%', #{keyword}, '%')
+			</if>
+			
+			<if test="searchType == 'c'.toString()">
+				where contents like CONCAT('%', #{keyword}, '%')
+			</if>
+			
+			<if test="searchType == 'w'.toString()">
+				where name like CONCAT('%', #{keyword}, '%')
+			</if>
+			
+			<if test="searchType == 'all'.toString()">
+				where title like CONCAT('%', #{keyword}, '%')
+					or contents like CONCAT('%', #{keyword}, '%')
+					or name like CONCAT('%', #{keyword}, '%')
+			</if>
+			
+		</if>
+	</sql>
+	
+	<!-- board 페이징 조회 -->
+	<select id="listPageCoding" resultType="CodingBoardVO">
+		select *
+		from codingboard
+		<include refid="searchCondition"></include>
+		order by board_number desc, create_date desc
+		limit #{dataStart}, #{perPageNum}
+	</select>
+	
+	<!-- bno 최대 구하기 -->
+	<select id="getMaxBnoCoding" resultType="Integer">
+		select max(board_number) from Codingboard
+	</select>	
+	
+	<!-- 전체 데이터 구하기 -->
+	<select id="totalCountCoding" resultType="int">
+		select count(board_number)
+		from codingboard
+		<include refid="searchCondition"></include>
+	</select>
+	
+	<update id="viewCountCoding" parameterType="int">
+		update codingboard
+		set view_count = view_count+1
+		where board_number = #{board_number}
+	</update>
+	
+	<update id="updateReplyCountCoding" parameterType="int">
+		update codingboard b
+		set b.reply_count = (select count(reply_number) from codingreply where board_number = #{board_number})
+		where b.board_number = #{board_number}
+	</update>
+	
+</mapper>

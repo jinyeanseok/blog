@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- DTD 선언 -->
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="FishingreplyMapper">
+	
+   
+   <!-- 댓글 조회 -->
+   	<select id="readReplyFishing" resultType="FishingReplyVO">
+   		select reply_number, replytext, replyer, create_date
+   		from fishingreply
+   		where board_number = #{board_number}
+   		order by reply_number desc, create_date desc
+   	</select>	
+   	
+   	<!-- 댓글 작성 -->
+   	<insert id="writeReplyFishing">
+   		insert into fishingreply(board_number, replytext, replyer)
+   		values( #{board_number}, #{replytext}, #{replyer})
+   	</insert>
+   	
+   	<!-- 댓글 수정 -->
+   	<update id="updateReplyFishing" parameterType="FishingReplyVO">
+   		update fishingreply 
+   		set replytext = #{replytext}
+   		where reply_number = #{reply_number}
+   	</update>
+   	
+   	<!-- 댓글 삭제 -->
+   	<delete id="deleteReplyFishing" parameterType="FishingReplyVO">
+   		delete
+   		from fishingreply 
+   		where reply_number = #{reply_number}
+   	</delete>
+   	
+   	<!-- 선택된 댓글 조회 -->
+	<select id="selectReplyFishing" resultType="FishingReplyVO">
+		select board_number, reply_number, replytext, replyer, create_date
+		from fishingreply
+		where reply_number = #{reply_number}
+	</select> 
+	 	
+</mapper>

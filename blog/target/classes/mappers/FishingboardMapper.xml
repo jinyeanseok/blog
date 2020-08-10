@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- DTD 선언 -->
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="FishingBoardMapper">
+	<!-- 데이터 삽입 -->
+	<insert id="createFishing">
+		insert into fishingboard (title, contents, identification, name)
+		values( #{title}, #{contents}, #{identification}, #{name})
+	</insert>
+	
+	<!-- 행 검색 -->
+	<select id="readFishing" resultType="FishingBoardVO">
+		select *
+		from fishingboard
+		where board_number = #{board_number}
+	</select>
+	
+	<!-- 행 수정 -->
+	<update id="updateFishing">
+		update fishingboard
+		set title = #{title}, contents = #{contents}
+		where board_number = #{board_number}
+	</update>
+	
+	<!-- 행 삭제 -->
+	<delete id="deleteFishing">
+		delete from fishingboard where board_number = #{board_number}
+	</delete>
+	
+	<!-- board 전체 행 조회 -->
+	<select id="listAllFishing" resultType="FishingBoardVO">
+		select *
+		from fishingboard
+		order by board_number desc, create_date desc
+	</select>
+	
+	<!-- 검색 -->
+	<sql id="searchCondition">
+		<if test="searchType != null">
+		
+			<if test="searchType == 't'.toString()">
+				where title like CONCAT('%', #{keyword}, '%')
+			</if>
+			
+			<if test="searchType == 'c'.toString()">
+				where contents like CONCAT('%', #{keyword}, '%')
+			</if>
+			
+			<if test="searchType == 'w'.toString()">
+				where name like CONCAT('%', #{keyword}, '%')
+			</if>
+			
+			<if test="searchType == 'all'.toString()">
+				where title like CONCAT('%', #{keyword}, '%')
+					or contents like CONCAT('%', #{keyword}, '%')
+					or name like CONCAT('%', #{keyword}, '%')
+			</if>
+			
+		</if>
+	</sql>
+	
+	<!-- board 페이징 조회 -->
+	<select id="listPageFishing" resultType="FishingBoardVO">
+		select *
+		from fishingboard
+		<include refid="searchCondition"></include>
+		order by board_number desc, create_date desc
+		limit #{dataStart}, #{perPageNum}
+	</select>
+	
+	<!-- bno 최대 구하기 -->
+	<select id="getMaxBnoFishing" resultType="Integer">
+		select max(board_number) from fishingboard
+	</select>	
+	
+	<!-- 전체 데이터 구하기 -->
+	<select id="totalCountFishing" resultType="int">
+		select count(board_number)
+		from fishingboard
+		<include refid="searchCondition"></include>
+	</select>
+	
+	<update id="viewCountFishing" parameterType="int">
+		update fishingboard
+		set view_count = view_count+1
+		where board_number = #{board_number}
+	</update>
+	
+	<update id="updateReplyCountFishing" parameterType="int">
+		update fishingboard b
+		set b.reply_count = (select count(reply_number) from fishingreply where board_number = #{board_number})
+		where b.board_number = #{board_number}
+	</update>
+	
+</mapper>

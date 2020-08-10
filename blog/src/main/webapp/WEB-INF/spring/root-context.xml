@@ -27,6 +27,10 @@
 	    		<value>classpath:mappers/boardMapper.xml</value>
 	    		<value>classpath:mappers/replyMapper.xml</value>
 	    		<value>classpath:mappers/userMapper.xml</value>
+	    		<value>classpath:mappers/CodingboardMapper.xml</value>
+	    		<value>classpath:mappers/CodingreplyMapper.xml</value>
+	    		<value>classpath:mappers/FishingboardMapper.xml</value>
+	    		<value>classpath:mappers/FishingreplyMapper.xml</value>	    		
 	    	</list>
 	     </property>
 	</bean>
