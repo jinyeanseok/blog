@@ -19,7 +19,8 @@
 
 # 내용
 
-- 구현 기능  
+- 구현 기능    
+
    - 회원가입, 로그인, 비밀번호 변경, 회원탈퇴
    - 커뮤니티(자유게시판, 코딩게시판, 낚시게시판)
    - 게시물 CRUD
@@ -31,16 +32,20 @@
    - 게시글 조회수 
    - 게시판 리스트 제목에 댓글 수
  
- - 산출물(대표)  
-   - ERD  
+ - 산출물(대표)    
+ 
+   - ERD    
+     
    
    ![image](https://github.com/dkaskgkdua/portfordev/raw/master/src/main/webapp/resources/Image/result/erd.png)
 
-   - 유스케이스 다이어그램       
+   - 유스케이스 다이어그램        
+   
    
    ![image](https://github.com/dkaskgkdua/portfordev/raw/master/src/main/webapp/resources/Image/result/usecase.png)
    
-   - 클래스 다이어그램     
+   - 클래스 다이어그램   
+   
    
    ![image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb0svFH%2FbtqGARnrUCj%2F49VbewjCpoiBHKU6A0kAy1%2Fimg.png)
    
