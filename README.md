@@ -37,12 +37,12 @@
    - ERD    
      
    
-   ![image](https://github.com/dkaskgkdua/portfordev/raw/master/src/main/webapp/resources/Image/result/erd.png)
+   ![image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FWZME8%2FbtqGvQ4YQgy%2FJ23rM8pkkZEtr21zpNarrK%2Fimg.png)
 
    - 유스케이스 다이어그램        
    
    
-   ![image](https://github.com/dkaskgkdua/portfordev/raw/master/src/main/webapp/resources/Image/result/usecase.png)
+   ![image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbRnbBx%2FbtqGAHkUXov%2Fva9CzifSCYq7tPis55LcbK%2Fimg.png)
    
    - 클래스 다이어그램   
    
