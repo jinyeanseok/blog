@@ -33,5 +33,5 @@
  
  - 산출물(대표)
    - ERD
-   https://github.com/dkaskgkdua/portfordev/blob/master/src/main/webapp/resources/Image/result/erd.png
+![image](https://github.com/dkaskgkdua/portfordev/raw/master/src/main/webapp/resources/Image/result/erd.png)
    
