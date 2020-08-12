@@ -42,7 +42,7 @@
    - 유스케이스 다이어그램        
    
    
-   ![image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbRnbBx%2FbtqGAHkUXov%2Fva9CzifSCYq7tPis55LcbK%2Fimg.png)
+   ![image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbvx4oC%2FbtqGvekK1SG%2FOiH81H95Kgtz7KMx5jakp1%2Fimg.png)
    
    - 클래스 다이어그램   
    
