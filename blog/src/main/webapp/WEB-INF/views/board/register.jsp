@@ -63,6 +63,7 @@
 			<div class="form-group">
 				<div class="container">
 					<button type="submit" class="btn btn-success">등록</button>
+					<button type="button" class="btn btn-info" onclick="history.back()">취소</button>
 				</div>
 				
 				

@@ -102,7 +102,7 @@
 </head>
 <body>
 
-		<h1 align="center">3PIXER</h1><hr />
+		<h1 align="center">자유게시판</h1><hr />
 	
 		<div class="container">
 			<div>글번호 : ${BoardVO.board_number}</div>
@@ -171,7 +171,7 @@
 				  <input type="hidden" id="perPageNum" name="perPageNum" value="${cri.perPageNum}"> 
 				
 				  <div class="input-group">
-				     <input type="hidden" id="replyer" name="replyer" value="${user.identification}" readonly="readonly"/>
+				     <input type="hidden" id="replyer" name="replyer" value="${user.name}" readonly="readonly"/>
 				     <input type="text" id="replytext" class="form-control" name="replytext" placeholder="내용을 입력하세요" />
 				  
 				  <span class="input-group-btn">
@@ -199,10 +199,10 @@
 		    
 		        <div class="container">
 			        <div class="parent">   	
-						  <div class="item-1">${replyList.replyer}</div> 
+						  <div class="item-1">${replyList.replyer} </div> 
 						  <div class="item-2"><fmt:formatDate value="${replyList.create_date}" pattern="yyyy-MM-dd" /></div> 
 						  <div class="item-3">
-							  <c:if test="${user.identification == replyList.replyer }"> <!-- boardVO.identification는 글작성한 사람 아이디, user.identification는 로그인한 사람 아이디 -->
+							  <c:if test="${user.name == replyList.replyer }"> <!-- boardVO.identification는 글작성한 사람 아이디, user.identification는 로그인한 사람 아이디 -->
 							  	<button type="button" class="replyUpdateBtn btn btn-success" data-reply_number="${replyList.reply_number}">수정</button>
 								<button type="button" class="replyDeleteBtn btn btn-danger" data-reply_number="${replyList.reply_number}">삭제</button>
 						   	  </c:if>
