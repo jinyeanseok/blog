@@ -37,9 +37,11 @@
    ![image](https://github.com/dkaskgkdua/portfordev/raw/master/src/main/webapp/resources/Image/result/erd.png)
 
    - 유스케이스 다이어그램       
+   
    ![image](https://github.com/dkaskgkdua/portfordev/raw/master/src/main/webapp/resources/Image/result/usecase.png)
    
    - 클래스 다이어그램     
+   
    ![image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb0svFH%2FbtqGARnrUCj%2F49VbewjCpoiBHKU6A0kAy1%2Fimg.png)
    
    
