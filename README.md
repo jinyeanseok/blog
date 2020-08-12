@@ -37,6 +37,6 @@
    ![image](https://github.com/dkaskgkdua/portfordev/raw/master/src/main/webapp/resources/Image/result/erd.png)
 
    - 유스케이스 다이어그램
-   ![image(https://github.com/dkaskgkdua/portfordev/raw/master/src/main/webapp/resources/Image/result/usecase.png)
+   ![image](https://github.com/dkaskgkdua/portfordev/raw/master/src/main/webapp/resources/Image/result/usecase.png)
    
    
