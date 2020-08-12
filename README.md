@@ -14,7 +14,7 @@
    - DB : Mysql
    - Framework/flatform : Spring, bootstrap, JQuery, mybatis
    - Programming Language : JAVA, JavaScript
-   - Tool : STS, Github, WorkBench
+   - Tool : STS, Github, WorkBench, Aquerytool
    
 
 # 내용
