@@ -30,3 +30,8 @@
    - 아이디 중복검사
    - 게시글 조회수 
    - 게시판 리스트 제목에 댓글 수
+ 
+ - 산출물(대표)
+   - ERD
+   https://github.com/dkaskgkdua/portfordev/blob/master/src/main/webapp/resources/Image/result/erd.png
+   
